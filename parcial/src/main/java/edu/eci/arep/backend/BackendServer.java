@@ -119,6 +119,9 @@ public class BackendServer {
             return buildHttpResponse(400, "{\"error\": \"Invalid key\"}");
         }
 
+        System.out.println("Received GET /getkv request for key: " + key);
+        System.out.println("KeyValueStore contents: " + keyValueStore);
+
         if (keyValueStore.containsKey(key)) {
             String value = keyValueStore.get(key);
             String jsonResponse = String.format("{\"key\": \"%s\", \"value\": \"%s\"}", key, value);

@@ -88,6 +88,7 @@ public class FacadeServer {
     }
 
     private static String forwardToBackend(String requestLine) throws IOException {
+        System.out.println("Forwarding GET /getkv request to backend: " + requestLine);
         try (Socket backendSocket = new Socket(BACKEND_HOST, BACKEND_PORT);
              PrintWriter out = new PrintWriter(backendSocket.getOutputStream(), true);
              BufferedReader in = new BufferedReader(new InputStreamReader(backendSocket.getInputStream()))) {
