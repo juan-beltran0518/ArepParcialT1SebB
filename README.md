@@ -19,3 +19,8 @@ Este proyecto implementa un almacenamiento llave-valor distribuido con una arqui
 - **Respuestas**:
   - `200 OK`: { "key": "mi_llave", "value": "mi_valor" }
   - `404 Not Found`: { "error": "key_not_found", "key": "mi_llave" }
+
+## Ejemplo de Uso
+### 1. Crear o actualizar una tupla llave-valor
+- **Solicitud**:
+  
