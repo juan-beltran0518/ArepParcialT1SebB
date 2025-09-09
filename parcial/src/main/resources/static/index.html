@@ -13,31 +13,27 @@
         <button type="button" onclick="setKV()">Set</button>
         <button type="button" onclick="getKV()">Get</button>
     </form>
-    <div id="response" style="white-space: pre-wrap; margin-top: 20px; border: 1px solid #ccc; padding: 10px;"></div>
+    <div id="response"></div>
     <script>
-        async function setKV() {
-            const key = document.getElementById("key").value;
-            const value = document.getElementById("value").value;
-
-            try {
-                const response = await fetch(`/setkv?key=${key}&value=${value}`);
-                const data = await response.json();
-                document.getElementById("response").innerText = JSON.stringify(data, null, 2);
-            } catch (error) {
-                document.getElementById("response").innerText = `Error: ${error.message}`;
-            }
+        function setKV() {
+            const key = document.getElementById("key").value.trim();
+            const value = document.getElementById("value").value.trim();
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                document.getElementById("response").innerText = this.responseText;
+            };
+            xhttp.open("GET", `/setkv?key=${key}&value=${value}`);
+            xhttp.send();
         }
 
-        async function getKV() {
-            const key = document.getElementById("key").value;
-
-            try {
-                const response = await fetch(`/getkv?key=${key}`);
-                const data = await response.json();
-                document.getElementById("response").innerText = JSON.stringify(data, null, 2);
-            } catch (error) {
-                document.getElementById("response").innerText = `Error: ${error.message}`;
-            }
+        function getKV() {
+            const key = document.getElementById("key").value.trim();
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                document.getElementById("response").innerText = this.responseText;
+            };
+            xhttp.open("GET", `/getkv?key=${key}`);
+            xhttp.send();
         }
     </script>
 </body>

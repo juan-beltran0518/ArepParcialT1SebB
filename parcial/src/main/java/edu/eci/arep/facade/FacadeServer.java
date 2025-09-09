@@ -69,45 +69,22 @@ public class FacadeServer {
         String key = params.get("key");
         String value = params.get("value");
 
-        if (key == null || value == null) {
-            return buildHttpResponse(400, "{\"error\": \"Invalid key or value\", \"message\": \"Key or value is missing\"}");
+        if (key == null || value == null || key.isEmpty() || value.isEmpty() || key.length() > MAX_LENGTH || value.length() > MAX_LENGTH) {
+            return buildHttpResponse(400, "{\"error\": \"Invalid key or value\"}");
         }
 
-        key = key.trim();
-        value = value.trim();
-
-        if (key.isEmpty() || value.isEmpty()) {
-            return buildHttpResponse(400, "{\"error\": \"Invalid key or value\", \"message\": \"Key or value cannot be empty\"}");
-        }
-
-        if (key.length() > MAX_LENGTH || value.length() > MAX_LENGTH) {
-            return buildHttpResponse(400, String.format(
-                "{\"error\": \"Invalid key or value\", \"message\": \"Key or value exceeds maximum length of %d characters\"}", MAX_LENGTH));
-        }
-
-        return forwardToBackend("GET /setkv?key=" + key + "&value=" + value);
+        return forwardToBackend(requestLine);
     }
 
     private static String handleGetKV(String requestLine) throws IOException {
         HashMap<String, String> params = parseParams(requestLine);
         String key = params.get("key");
 
-        if (key == null) {
-            return buildHttpResponse(400, "{\"error\": \"Invalid key\", \"message\": \"Key is missing\"}");
+        if (key == null || key.isEmpty() || key.length() > MAX_LENGTH) {
+            return buildHttpResponse(400, "{\"error\": \"Invalid key\"}");
         }
 
-        key = key.trim();
-
-        if (key.isEmpty()) {
-            return buildHttpResponse(400, "{\"error\": \"Invalid key\", \"message\": \"Key cannot be empty\"}");
-        }
-
-        if (key.length() > MAX_LENGTH) {
-            return buildHttpResponse(400, String.format(
-                "{\"error\": \"Invalid key\", \"message\": \"Key exceeds maximum length of %d characters\"}", MAX_LENGTH));
-        }
-
-        return forwardToBackend("GET /getkv?key=" + key);
+        return forwardToBackend(requestLine);
     }
 
     private static String forwardToBackend(String requestLine) throws IOException {
@@ -118,19 +95,13 @@ public class FacadeServer {
             out.println(requestLine);
             StringBuilder response = new StringBuilder();
             String line;
-            int statusCode = 200; 
             while ((line = in.readLine()) != null) {
-                if (line.startsWith("HTTP/1.1")) {
-                    statusCode = Integer.parseInt(line.split(" ")[1]);
-                }
                 response.append(line).append("\n");
                 if (!in.ready()) {
                     break;
                 }
             }
-
-            
-            return buildHttpResponse(statusCode, response.toString().split("\r\n\r\n", 2)[1]);
+            return response.toString();
         }
     }
 

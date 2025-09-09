@@ -36,7 +36,7 @@ public class BackendServer {
     private static void handleClient(Socket clientSocket) throws IOException {
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
+        
         String inputLine;
         StringBuilder request = new StringBuilder();
 
@@ -88,7 +88,7 @@ public class BackendServer {
         }
 
         if (key == null || key.isEmpty() || value == null || value.isEmpty()) {
-            return buildHttpResponse(400, "{\"error\": \"Invalid key or value\", \"message\": \"Key or value cannot be empty\"}");
+            return buildHttpResponse(400, "{\"error\": \"Invalid key or value\"}");
         }
 
         boolean isUpdate = keyValueStore.containsKey(key);
@@ -116,7 +116,7 @@ public class BackendServer {
         }
 
         if (key == null || key.isEmpty()) {
-            return buildHttpResponse(400, "{\"error\": \"Invalid key\", \"message\": \"Key cannot be empty\"}");
+            return buildHttpResponse(400, "{\"error\": \"Invalid key\"}");
         }
 
         if (keyValueStore.containsKey(key)) {
