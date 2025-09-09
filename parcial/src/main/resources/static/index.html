@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Key-Value Store</title>
+</head>
+<body>
+    <h1>Key-Value Store</h1>
+    <form>
+        <label for="key">Key:</label>
+        <input type="text" id="key" name="key"><br>
+        <label for="value">Value:</label>
+        <input type="text" id="value" name="value"><br>
+        <button type="button" onclick="setKV()">Set</button>
+        <button type="button" onclick="getKV()">Get</button>
+    </form>
+    <div id="response" style="white-space: pre-wrap; margin-top: 20px; border: 1px solid #ccc; padding: 10px;"></div>
+    <script>
+        async function setKV() {
+            const key = document.getElementById("key").value;
+            const value = document.getElementById("value").value;
+
+            try {
+                const response = await fetch(`/setkv?key=${key}&value=${value}`);
+                const data = await response.json();
+                document.getElementById("response").innerText = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById("response").innerText = `Error: ${error.message}`;
+            }
+        }
+
+        async function getKV() {
+            const key = document.getElementById("key").value;
+
+            try {
+                const response = await fetch(`/getkv?key=${key}`);
+                const data = await response.json();
+                document.getElementById("response").innerText = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById("response").innerText = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -16,9 +16,9 @@ public class BackendServer {
 
         try {
             serverSocket = new ServerSocket(PORT);
-            System.out.println("Backend server listening on port " + PORT);
+            System.out.println("Listo para recibir: " + PORT);
         } catch (IOException e) {
-            System.err.println("Could not listen on port: " + PORT);
+            System.err.println("Accept failed. " + PORT);
             System.exit(1);
         }
 
@@ -40,7 +40,7 @@ public class BackendServer {
         String inputLine;
         StringBuilder request = new StringBuilder();
 
-        // Read the HTTP request
+
         while ((inputLine = in.readLine()) != null) {
             request.append(inputLine).append("\n");
             if (!in.ready()) {
@@ -88,7 +88,7 @@ public class BackendServer {
         }
 
         if (key == null || key.isEmpty() || value == null || value.isEmpty()) {
-            return buildHttpResponse(400, "Invalid key or value");
+            return buildHttpResponse(400, "{\"error\": \"Invalid key or value\", \"message\": \"Key or value cannot be empty\"}");
         }
 
         boolean isUpdate = keyValueStore.containsKey(key);
@@ -116,7 +116,7 @@ public class BackendServer {
         }
 
         if (key == null || key.isEmpty()) {
-            return buildHttpResponse(400, "Invalid key");
+            return buildHttpResponse(400, "{\"error\": \"Invalid key\", \"message\": \"Key cannot be empty\"}");
         }
 
         if (keyValueStore.containsKey(key)) {
