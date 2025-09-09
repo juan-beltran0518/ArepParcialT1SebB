@@ -1,4 +1,4 @@
-# ArepParcialT1SebB
+# Parcial
 Parcial de primer corte, Arquitectura Empresarial.
 
 ## Descripción
@@ -20,7 +20,31 @@ Este proyecto implementa un almacenamiento llave-valor distribuido con una arqui
   - `200 OK`: { "key": "mi_llave", "value": "mi_valor" }
   - `404 Not Found`: { "error": "key_not_found", "key": "mi_llave" }
 
-## Ejemplo de Uso
-### 1. Crear o actualizar una tupla llave-valor
-- **Solicitud**:
-  
+
+# Ejecucion
+```
+mvn clean compile
+```
+```
+java -cp target/classes edu.eci.arep.backend.BackendServer
+```
+# Acceso + ejemplos de uso
+```
+http://localhost:35000/setkv?key=testKey&value=testValue
+```
+
+# Casos de uso
+###  Crear o actualizar una tupla llave-valor
+```
+GET /setkv?key=nombre&value=Juan
+```
+
+### Obtener el valor de una llave existente
+```
+GET /getkv?key=nombre
+```
+
+### Obtener el valor de una llave inexistente
+```
+GET /getkv?key=apellido
+```
