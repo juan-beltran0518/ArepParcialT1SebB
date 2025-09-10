@@ -2,7 +2,7 @@
 Parcial de primer corte, Arquitectura Empresarial.
 
 ## Descripción
-Este proyecto implementa un almacenamiento llave-valor distribuido con una arquitectura de tres componentes:
+Este Parcial implementa un almacenamiento llave-valor distribuido con una arquitectura de tres componentes:
 1. **Cliente (HTML + JS)**: Interfaz para interactuar con el sistema.
 2. **Fachada**: Valida y reenvía solicitudes al backend.
 3. **Backend**: Almacena y recupera las tuplas llave-valor.
@@ -23,10 +23,10 @@ Este proyecto implementa un almacenamiento llave-valor distribuido con una arqui
 
 # Ejecucion
 ```
-mvn clean compile
+1. mvn clean compile
 ```
 ```
-java -cp target/classes edu.eci.arep.backend.BackendServer
+2. java -cp target/classes edu.eci.arep.backend.BackendServer
 ```
 # Acceso + ejemplos de uso
 ```
@@ -34,17 +34,20 @@ http://localhost:35000/setkv?key=testKey&value=testValue
 ```
 
 # Casos de uso
-###  Crear o actualizar una tupla llave-valor
+1. Crear o actualizar una tupla llave-valor
 ```
 GET /setkv?key=nombre&value=Juan
 ```
 
-### Obtener el valor de una llave existente
+2. Obtener el valor de una llave existente
 ```
 GET /getkv?key=nombre
 ```
 
-### Obtener el valor de una llave inexistente
+3. Obtener el valor de una llave inexistente
 ```
 GET /getkv?key=apellido
 ```
+
+# Link video de funcionamiento 
+https://pruebacorreoescuelaingeduco-my.sharepoint.com/:v:/g/personal/juan_brodriguez_mail_escuelaing_edu_co/EWiWYh9T8BhFnJzdplhRanYBeRUiSgjjpnF6fqYytIMPCQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=IMc1S9
